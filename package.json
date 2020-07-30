@@ -1,0 +1,40 @@
+{
+  "name": "compress-img",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inoue-dev/compress-img.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inoue-dev/compress-img/issues"
+  },
+  "homepage": "https://github.com/inoue-dev/compress-img#readme",
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "svgo": "^1.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/*.{jpg,jpeg,JPG,JPEG}": [
+      "jpegoptim --strip-all --max=80 -t"
+    ],
+    "./**/*.{png,PNG}": [
+      "pngquant --ext .png --speed 1 --force",
+      "git add"
+    ],
+    "./**/*.svg": [
+      "svgo --config=.svgo.yml --enable='removeComments,mergePaths'"
+    ]
+  }
+}
